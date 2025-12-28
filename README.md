@@ -1,9 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Better Chat
+
+A Next.js application with Supabase integration, built for collaborative development between humans and AI agents.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18+
+- npm, yarn, pnpm, or bun
+- Supabase account and project
 
+### Installation
+
+1. Clone the repository and install dependencies:
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+2. Set up your Supabase credentials:
+   - Copy `.env.local.example` to `.env.local`
+   - Replace the placeholder values with your actual Supabase project credentials
+
+3. Run the development server:
 ```bash
 npm run dev
 # or
@@ -16,9 +39,34 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project follows a structured approach to ensure maintainability and scalability:
+
+- **Next.js 16** with App Router
+- **TypeScript** for type safety
+- **Tailwind CSS** for styling
+- **Supabase** for backend services
+- **ESLint** for code quality
+
+## Development Guidelines
+
+### For AI Agents
+Please read and follow the [AI Coding Guidelines](AI_CODING_GUIDELINES.md) before making any changes. These guidelines ensure consistent code quality and maintainability.
+
+### For Human Developers
+- Follow the established patterns in the codebase
+- Reference the AI Coding Guidelines for best practices
+- Use TypeScript strictly with proper type definitions
+- Write clear, descriptive commit messages
+- Test your changes thoroughly
+
+## Tech Stack
+
+- **Frontend**: Next.js 16, React 19, TypeScript
+- **Styling**: Tailwind CSS
+- **Backend**: Supabase (Database, Auth, Real-time)
+- **Development**: ESLint, TypeScript
 
 ## Learn More
 
