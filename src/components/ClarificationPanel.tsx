@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { X } from 'lucide-react'
+import { Markdown } from './Markdown'
 import type { Clarification } from './ChatInterface'
 
 interface ClarificationPanelProps {
@@ -87,7 +88,7 @@ export function ClarificationPanel({ clarification, onClose, onSubmit }: Clarifi
                 Clarification
               </label>
               <div className="bg-accent border border-border rounded-lg p-3">
-                <p className="text-sm">{clarification.response}</p>
+                <Markdown content={clarification.response} />
               </div>
             </div>
           )}

@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { MessageBubble } from './MessageBubble'
+import { AIMessage } from './AIMessage'
+import { UserMessage } from './MessageBubble'
 import { ClarificationPanel } from './ClarificationPanel'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
+import { ChatInput } from './ChatInput'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 export interface Message {
@@ -104,12 +104,6 @@ export function ChatInterface() {
     }
   }
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      handleSendMessage()
-    }
-  }
 
   const handleTextSelection = (messageId: string, selectedText: string) => {
     const clarification: Clarification = {
@@ -207,23 +201,28 @@ export function ChatInterface() {
       {/* Main chat area */}
       <div className="flex-1 flex flex-col">
         {/* Messages */}
-        <ScrollArea className="flex-1 p-4">
-          <div className="space-y-4">
+        <ScrollArea className="flex-1">
+          <div className="min-h-full">
             {messages.map((message) => (
-              <MessageBubble
-                key={message.id}
-                message={message}
-                onTextSelection={handleTextSelection}
-              />
+              message.role === 'assistant' ? (
+                <AIMessage
+                  key={message.id}
+                  message={message}
+                  onTextSelection={handleTextSelection}
+                />
+              ) : (
+                <UserMessage
+                  key={message.id}
+                  message={message}
+                />
+              )
             ))}
             {isLoading && (
-              <div className="flex justify-start">
-                <div className="bg-muted rounded-lg px-4 py-2 max-w-xs">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                  </div>
+              <div className="w-full max-w-4xl mx-auto py-6 px-4">
+                <div className="flex space-x-1">
+                  <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce"></div>
+                  <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                  <div className="w-2 h-2 bg-muted-foreground/40 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
                 </div>
               </div>
             )}
@@ -232,23 +231,14 @@ export function ChatInterface() {
         </ScrollArea>
 
         {/* Input */}
-        <div className="border-t bg-card p-4">
-          <div className="flex space-x-2">
-            <Input
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Type your message..."
-              disabled={isLoading}
-              className="flex-1"
-            />
-            <Button
-              onClick={handleSendMessage}
-              disabled={!inputValue.trim() || isLoading}
-            >
-              Send
-            </Button>
-          </div>
+        <div className="p-4">
+          <ChatInput
+            value={inputValue}
+            onChange={setInputValue}
+            onSubmit={handleSendMessage}
+            disabled={isLoading}
+            isLoading={isLoading}
+          />
         </div>
       </div>
 

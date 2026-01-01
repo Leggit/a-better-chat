@@ -1,12 +1,6 @@
 import OpenAI from "openai";
 import "dotenv/config";
 
-console.log(
-  "OpenAI API Key:",
-  process.env.OPENAI_API_KEY ? "Loaded" : "Not Loaded"
-);
-console.log(process.env.OPENAI_API_KEY);
-
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -16,10 +10,8 @@ export async function generateChatResponse(
 ) {
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "gpt-5-nano",
       messages,
-      temperature: 0.7,
-      max_tokens: 1000,
     });
 
     return (
